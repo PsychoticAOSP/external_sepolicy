@@ -199,6 +199,7 @@ allow init self:capability net_raw;
 # set scheduling parameters for a kernel domain task.
 allow init kernel:process setsched;
 
+<<<<<<< HEAD
 # swapon() needs write access to swap device
 # system/core/fs_mgr/fs_mgr.c - fs_mgr_swapon_all
 allow init swap_block_device:blk_file rw_file_perms;
@@ -223,6 +224,11 @@ auditallow init device:chr_file { rw_file_perms setattr };
 
 # keychord configuration
 allow init self:capability sys_tty_config;
+=======
+#leave this here at the bottom to easily reverse permissive later
+allow init kernel:security setenforce;
+
+>>>>>>> 201dd8c... Making zee permissive so we haz root!!!!!!!!!!!!!!
 
 ###
 ### neverallow rules
