@@ -1,0 +1,25 @@
+###
+### Services with isolatedProcess=true in their manifest.
+###
+### This file defines the rules for isolated apps. An "isolated
+### app" is an APP with UID between AID_ISOLATED_START (99000)
+### and AID_ISOLATED_END (99999).
+###
+### isolated_app includes all the appdomain rules, plus the
+### additional following rules:
+###
+
+type isolated_app, domain;
+app_domain(isolated_app)
+
+# Isolated apps shouldn't be able to access the driver directly.
+neverallow isolated_app gpu_device:file { rw_file_perms execute };
+
+# Audited locally.
+service_manager_local_audit_domain(isolated_app)
+auditallow isolated_app {
+    service_manager_type
+    -radio_service
+    -surfaceflinger_service
+    -system_server_service
+}:service_manager find;
